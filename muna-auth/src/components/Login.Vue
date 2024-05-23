@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script>
 import { Button } from './components/ui/button'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from './components/ui/card'
 import { Input } from './components/ui/input'
@@ -9,10 +9,10 @@ import { Label } from './components/ui/label'
   <Card class="w-full max-w-sm">
     <CardHeader>
       <CardTitle class="text-2xl">
-        <h2>Login</h2>
+        Login
       </CardTitle>
       <CardDescription>
-        <h5>Enter your email below to login to your account.</h5>
+        Enter your email below to login to your account.
       </CardDescription>
     </CardHeader>
     <CardContent class="grid gap-4">

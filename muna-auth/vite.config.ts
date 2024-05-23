@@ -17,4 +17,10 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  server: {
+    mimeTypes: {
+      'application/javascript': ['js', 'vue'],
+      'text/javascript': ['js', 'vue']
+    }
+  }  
 })
