@@ -1,11 +1,16 @@
 <script setup lang="ts">
-import { Button } from './src/components/ui/button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './src/components/ui/card'
-import { Input } from './src/components/ui/input'
-import { Label } from './src/components/ui/label'
+import { Button } from './ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
+import { Input } from './ui/input';
+import { Label } from './ui/label';
+
+  export default {
+    name: 'Signup'
+  }
 </script>
 
 <template>
+  <form @submit.prevent="handleSubmit">
   <Card class="mx-auto max-w-sm">
     <CardHeader>
       <CardTitle class="text-xl">
@@ -20,11 +25,11 @@ import { Label } from './src/components/ui/label'
         <div class="grid grid-cols-2 gap-4">
           <div class="grid gap-2">
             <Label for="first-name">First name</Label>
-            <Input id="first-name" placeholder="Max" required />
+            <Input id="first-name" v-model="first_name" placeholder="Max" required />
           </div>
           <div class="grid gap-2">
             <Label for="last-name">Last name</Label>
-            <Input id="last-name" placeholder="Robinson" required />
+            <Input id="last-name" v-model="last_name" placeholder="Robinson" required />
           </div>
         </div>
         <div class="grid gap-2">
@@ -32,27 +37,28 @@ import { Label } from './src/components/ui/label'
           <Input
             id="email"
             type="email"
+            v-model="email"
             placeholder="m@example.com"
             required
           />
         </div>
         <div class="grid gap-2">
           <Label for="password">Password</Label>
-          <Input id="password" type="password" />
+          <Input id="password" v-model="password" type="password" />
+        </div>
+        <div class="grid gap-2">
+          <Label for="password-confirm">Password Confirmation</Label>
+          <Input id="password-confirm" v-model="password_confirm" type="password" />
         </div>
         <Button type="submit" class="w-full">
           Create an account
         </Button>
-        <Button variant="outline" class="w-full">
-          Sign up with GitHub
-        </Button>
       </div>
       <div class="mt-4 text-center text-sm">
         Already have an account?
-        <a href="#" class="underline">
-          Sign in
-        </a>
+        <router-link :to="{ name: 'login' }"> Login</router-link>
       </div>
     </CardContent>
   </Card>
+  </form>
 </template>

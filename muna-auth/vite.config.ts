@@ -16,11 +16,5 @@ export default defineConfig({
     alias: {
       "@": path.resolve(__dirname, "./src"),
     },
-  },
-  server: {
-    mimeTypes: {
-      'application/javascript': ['js', 'vue'],
-      'text/javascript': ['js', 'vue']
-    }
-  }  
+  }
 })
