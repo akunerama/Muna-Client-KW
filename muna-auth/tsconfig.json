@@ -9,9 +9,11 @@
     "paths": {
       "@/*": ["./src/*"]
     },
+    "allowJs": true,
+    "checkJs": true,
 
     /* Bundler mode */
-    "moduleResolution": "bundler",
+    "moduleResolution": "Bundler",
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "isolatedModules": true,

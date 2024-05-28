@@ -1,17 +1,17 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import Signup from './Signup.vue';
-import Login from './Login.vue';
-import HelloWorld from './src/components/HelloWorld.vue';
+import Signup from '../components/Signup.vue';
+import Login from '../components/Login.vue';
+import HelloWorld from '../components/HelloWorld.vue';
 
 const routes = [
   { path: '/', component: HelloWorld },
   { path: '/login', component: Login, name:'login' },
-  { path: '/signup', component: Signup, name:'signup'},
+  { path: '/signup', component: Signup, name:'signup'}
 ];
 
 const router = createRouter({
   history: createWebHistory(),
-  routes,
+  routes
 });
 
 export default router;

@@ -1,13 +1,12 @@
-<script setup lang="ts">
-import { Button } from "./components/ui/button";
-</script>
-
 <template>
-  <div>
+  <!-- <div>
     <Button>test</Button>
-  </div>
+  </div> -->
   <div>
     <router-view />
   </div>
 </template>
 
+<script setup lang="ts">
+// import { Button } from "@/components/ui/button";
+</script>
