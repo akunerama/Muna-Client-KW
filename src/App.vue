@@ -1,12 +1,14 @@
 <template>
   <div class="app">
     <Sidebar />
-    <router-view />
+    <main class="main-content">
+      <router-view />
+    </main>
   </div>
 </template>
 
 <script setup lang="ts">
-import Sidebar from './components/Sidebar.vue';
+import Sidebar from './navigation/Sidebar.vue';
 </script>
 
 <style lang="scss">
@@ -24,7 +26,7 @@ import Sidebar from './components/Sidebar.vue';
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Fira sans', sans-serif;
+  font-family: 'Fira Sans', sans-serif;
 }
 
 body {
@@ -42,12 +44,15 @@ button {
 .app {
   display: flex;
 
-  main {
-    flex: 1 1 0;
+  .main-content {
+    flex: 1;
     padding: 2rem;
+    margin-left: var(--sidebar-width);
+    transition: margin-left 0.2s ease-out;
 
-    @media (max-width: 1024px) {
-      padding-left: 6rem;
+    @media (max-width: 768px) {
+      margin-left: calc(2rem + 32px);
+      padding: 1rem;
     }
   }
 }
