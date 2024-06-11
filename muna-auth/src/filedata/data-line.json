@@ -1,0 +1,32 @@
+{
+    "LineData": [
+      { "tahun": 2023, "semester": 7, "gelombang": 1, "jumlah_mahasiswa": 36 },
+      { "tahun": 2023, "semester": 7, "gelombang": 2, "jumlah_mahasiswa": 30 },
+      { "tahun": 2023, "semester": 7, "gelombang": 3, "jumlah_mahasiswa": 25 },
+      { "tahun": 2023, "semester": 7, "gelombang": 4, "jumlah_mahasiswa": 36 },
+      { "tahun": 2023, "semester": 8, "gelombang": 1, "jumlah_mahasiswa": 20 },
+      { "tahun": 2023, "semester": 8, "gelombang": 2, "jumlah_mahasiswa": 31 },
+      { "tahun": 2023, "semester": 8, "gelombang": 3, "jumlah_mahasiswa": 14 },
+      { "tahun": 2023, "semester": 8, "gelombang": 4, "jumlah_mahasiswa": 38 },
+      { "tahun": 2024, "semester": 9, "gelombang": 1, "jumlah_mahasiswa": 20 },
+      { "tahun": 2024, "semester": 9, "gelombang": 2, "jumlah_mahasiswa": 23 },
+      { "tahun": 2024, "semester": 9, "gelombang": 3, "jumlah_mahasiswa": 11 },
+      { "tahun": 2024, "semester": 9, "gelombang": 4, "jumlah_mahasiswa": 9 },
+      { "tahun": 2024, "semester": 10, "gelombang": 1, "jumlah_mahasiswa": 2 },
+      { "tahun": 2024, "semester": 10, "gelombang": 2, "jumlah_mahasiswa": 4 },
+      { "tahun": 2024, "semester": 10, "gelombang": 3, "jumlah_mahasiswa": 6 },
+      { "tahun": 2024, "semester": 10, "gelombang": 4, "jumlah_mahasiswa": 2 },
+      { "tahun": 2025, "semester": 11, "gelombang": 1, "jumlah_mahasiswa": 1 },
+      { "tahun": 2025, "semester": 11, "gelombang": 2, "jumlah_mahasiswa": 4 },
+      { "tahun": 2025, "semester": 11, "gelombang": 3, "jumlah_mahasiswa": 5 },
+      { "tahun": 2025, "semester": 11, "gelombang": 4, "jumlah_mahasiswa": 4 },
+      { "tahun": 2025, "semester": 12, "gelombang": 1, "jumlah_mahasiswa": 6 },
+      { "tahun": 2025, "semester": 12, "gelombang": 2, "jumlah_mahasiswa": 1 },
+      { "tahun": 2025, "semester": 12, "gelombang": 3, "jumlah_mahasiswa": 3 },
+      { "tahun": 2025, "semester": 12, "gelombang": 4, "jumlah_mahasiswa": 1 },
+      { "tahun": 2026, "semester": 13, "gelombang": 1, "jumlah_mahasiswa": 1 },
+      { "tahun": 2026, "semester": 13, "gelombang": 2, "jumlah_mahasiswa": 1 },
+      { "tahun": 2026, "semester": 13, "gelombang": 3, "jumlah_mahasiswa": 1 },
+      { "tahun": 2026, "semester": 13, "gelombang": 4, "jumlah_mahasiswa": 2 }
+    ]
+  }

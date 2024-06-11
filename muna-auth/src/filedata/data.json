@@ -1,0 +1,82 @@
+{
+  "ChartData": [
+    { "tahun": 2020, "jumlah_mahasiswa": 30 },
+    { "tahun": 2021, "jumlah_mahasiswa": 45 },
+    { "tahun": 2022, "jumlah_mahasiswa": 25 },
+    { "tahun": 2023, "jumlah_mahasiswa": 50 },
+    { "tahun": 2024, "jumlah_mahasiswa": 40 }
+  ],
+  
+  "bar-event":[
+    {
+      "semester": "2023 Spring",
+      "wave": 1,
+      "students": [
+        {
+          "nim": "123456789",
+          "name": "John Doe",
+          "title": "AI in Healthcare",
+          "examiner": {
+            "nip": "1987654321",
+            "name": "Dr. Smith"
+          }
+        },
+        {
+          "nim": "987654321",
+          "name": "Jane Smith",
+          "title": "Blockchain Technology",
+          "examiner": {
+            "nip": "1234567890",
+            "name": "Dr. Johnson"
+          }
+        }
+      ]
+    },
+    {
+      "semester": "2023 Spring",
+      "wave": 2,
+      "students": [
+        {
+          "nim": "123123123",
+          "name": "Alice Johnson",
+          "title": "Data Science Applications",
+          "examiner": {
+            "nip": "1122334455",
+            "name": "Dr. Brown"
+          }
+        }
+      ]
+    },
+    {
+      "semester": "2023 Spring",
+      "wave": 3,
+      "students": [
+        {
+          "nim": "456456456",
+          "name": "Bob Brown",
+          "title": "Quantum Computing",
+          "examiner": {
+            "nip": "2233445566",
+            "name": "Dr. Taylor"
+          }
+        }
+      ]
+    },
+    {
+      "semester": "2023 Spring",
+      "wave": 4,
+      "students": [
+        {
+          "nim": "789789789",
+          "name": "Charlie Black",
+          "title": "Cybersecurity",
+          "examiner": {
+            "nip": "3344556677",
+            "name": "Dr. Wilson"
+          }
+        }
+      ]
+    }
+  ]
+  
+}

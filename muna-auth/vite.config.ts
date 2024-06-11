@@ -15,6 +15,7 @@ export default defineConfig({
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
+      'vue-demi': 'vue-demi/lib/index.mjs',
     }
   },
 })
