@@ -9,9 +9,8 @@
       </CardHeader>
       <CardContent class="grid gap-4">
         <div class="grid gap-2">
-          <Label for="email">Email </Label>
-          <h1>{{ firstName }}</h1>
-          <Input id="email" type="email" v-model="email" placeholder="m@example.com" required />
+          <Label for="username">Username </Label>
+          <Input id="username" type="text" v-model="username" placeholder="09202903XX" required />
         </div>
         <div class="grid gap-2">
           <Label for="password">Password</Label>
@@ -41,7 +40,7 @@ import {
 } from "./ui/card";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
-import { mapState } from 'vuex';
+// import { mapState } from 'vuex';
 
 export default {
   name: "Login",
@@ -58,21 +57,45 @@ export default {
   },
   data() {
     return {
-      email: "",
+      username: "",
       password: "",
     };
   },
   methods: {
-    handleSubmit() {
-      // Logic for handling form submission
-      console.log("Email:", this.email);
-      console.log("Password:", this.password);
+    async handleSubmit() {
+      const data = {
+        user_name: this.username,
+        password: this.password,
+      };
+
+      try {
+        const response = await fetch('http://10.1.15.208:8000/auth/login/', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+          credentials: 'include'
+        });
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.message || 'Login failed');
+        }
+
+        const result = await response.json();
+        alert('Login successful:', result);
+        // Redirect to the home page if login is successful
+        // router.push({ name: 'HelloWorld' });
+      } catch (error) {
+        console.error('Login error:', error.message);
+        alert(error.message); // Show user the error message
+      }
+
+      return {
+        username, password, handleSubmit
+      };
     }
-  },
-  computed: {
-    ...mapState('auth', {
-      firstName: state => state.name
-    })
-  },
-};
+  }
+}
 </script>

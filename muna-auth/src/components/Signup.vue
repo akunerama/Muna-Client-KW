@@ -1,8 +1,56 @@
 <script setup lang="ts">
+import { ref } from 'vue'; // Pastikan impor ini ada
+import { useRouter } from 'vue-router';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+
+// Declare form fields using refconst first_name = ref('');
+const name = ref('');
+const username = ref('');
+const password = ref('');
+
+const router = useRouter();
+const handleSubmit = async () => {
+  const data = {
+    user_name: username.value,
+  };
+
+  try {
+    // Make a POST request to your API endpoint using fetch
+    const response = await fetch('http://10.1.15.208:8000/auth/register/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data),
+      credentials: 'include' // include, *same-origin, omit
+    });
+
+    if (!response.ok) {
+      // Extract error message from response
+      const errorResponse = await response.json();
+      throw new Error(errorResponse.message || 'Error occurred during sign up');
+    }
+
+    const result = await response.json();
+    if (result.password != null) {
+      alert(`Registration successful! Your temporary password is: ${result.password}`);
+      console.log(result);
+    } else {
+      alert('Registration successful! But no password was provided by the server.');
+    }
+
+
+
+    // Redirect to another page, for example login page
+    router.push({ name: 'login' });
+  } catch (error) {
+    // Handle error response
+    console.error('Sign up failed:', error.message);
+  };
+}
 </script>
 
 <template>
@@ -13,33 +61,23 @@ import { Label } from '@/components/ui/label';
           Sign Up
         </CardTitle>
         <CardDescription>
-          Enter your information to create an account
+          Enter your NIM to get your password
         </CardDescription>
       </CardHeader>
       <CardContent>
         <div class="grid gap-4">
-          <div class="grid grid-cols-2 gap-4">
-            <div class="grid gap-2">
-              <Label for="first-name">First name</Label>
-              <Input id="first-name" v-model="first_name" placeholder="Max" required />
-            </div>
-            <div class="grid gap-2">
-              <Label for="last-name">Last name</Label>
-              <Input id="last-name" v-model="last_name" placeholder="Robinson" required />
-            </div>
-          </div>
+          <!-- <div class="grid gap-2">
+            <Label for="full-name">Full Name</Label>
+            <Input id="name" type="text" v-model="name" placeholder="Indah Dewi" required />
+          </div> -->
           <div class="grid gap-2">
-            <Label for="email">Email</Label>
-            <Input id="email" type="email" v-model="email" placeholder="m@example.com" required />
+            <Label for="nim">NIM</Label>
+            <Input id="username" type="text" v-model="username" placeholder="090123456XX" required />
           </div>
-          <div class="grid gap-2">
+          <!-- <div class="grid gap-2">
             <Label for="password">Password</Label>
             <Input id="password" v-model="password" type="password" />
-          </div>
-          <div class="grid gap-2">
-            <Label for="password-confirm">Password Confirmation</Label>
-            <Input id="password-confirm" v-model="password_confirm" type="password" />
-          </div>
+          </div> -->
           <Button type="submit" class="w-full">
             Create an account
           </Button>
