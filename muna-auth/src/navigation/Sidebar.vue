@@ -6,7 +6,7 @@
 
     <h3>Menu</h3>
     <div class="menu">
-      <router-link class="button" to="/" exact>
+      <router-link class="button" to="/home" exact>
         <span class="material-icons">home</span>
         <span class="text"> Home </span>
       </router-link>
@@ -16,14 +16,19 @@
         <span class="text"> Dashboard </span>
       </router-link>
 
-      <router-link class="button" to="/datamanager">
-        <span class="material-icons">data_exploration</span>
-        <span class="text"> Data Manager </span>
-      </router-link>
-
       <router-link class="button" to="/schedule">
         <span class="material-icons">calendar_today</span>
         <span class="text"> Jadwal </span>
+      </router-link>
+
+      <router-link class="button" to="/dataschedule">
+        <span class="material-icons">date_range</span>
+        <span class="text"> Data Schedule </span>
+      </router-link>
+
+      <router-link class="button" to="/datamanager">
+        <span class="material-icons">edit_note</span>
+        <span class="text"> Data Manager </span>
       </router-link>
 
       <router-link class="button" to="/form">
@@ -36,11 +41,27 @@
         <span class="text"> Report </span>
       </router-link>
     </div>
+
+    <div class="flex"></div>
+    <button class="button logout" @click="handleLogout">
+      <span class="material-icons">logout</span>
+      <span class="text">Logout</span>
+    </button>
+    <div class="menu">
+
+    </div>
+
   </aside>
 </template>
 
 <script setup lang="ts">
+  import { useRouter } from 'vue-router';
+  const router = useRouter();
 
+  const handleLogout = () => {
+    alert('You have been logged out');
+    router.push({ name: 'login' }); // Arahkan kembali ke halaman login
+  };
 </script>
 
 <style lang="scss" scoped>
@@ -60,6 +81,11 @@ aside {
   display: flex;
   flex-direction: column;
   z-index: 100;
+
+  .flex {
+    flex: 1;
+    align-items: left;
+  }
 
   .logo {
     margin-bottom: 1rem;

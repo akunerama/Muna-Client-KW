@@ -78,7 +78,7 @@ const handleSubmit = async () => {
             <Label for="password">Password</Label>
             <Input id="password" v-model="password" type="password" />
           </div> -->
-          <Button type="submit" class="w-full">
+          <Button type="submit" class="w-full bg-black text-white hover:bg-gray-800 focus:ring focus:ring-black active:bg-gray-900">
             Create an account
           </Button>
         </div>

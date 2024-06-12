@@ -1,13 +1,17 @@
 <script setup lang="ts">
-import { Button } from '@/components/ui/button'
+import { Button } from './ui/button';
 import { useRouter } from 'vue-router'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 
 const router = useRouter()
 
 const goBack = () => {
-  router.go(-1)
-}
+  if (window.history.length > 1) {
+    router.go(-1);
+  } else {
+    router.push({ name: 'home' });
+  }
+};
 </script>
 
 <template>
@@ -23,7 +27,8 @@ const goBack = () => {
         </CardDescription>
       </CardHeader>
       <CardFooter>
-        <Button class="w-full" @click="goBack"> Go Back
+        <Button class="w-full bg-black text-white hover:bg-gray-800 focus:ring focus:ring-black active:bg-gray-900" @click="goBack">
+          Go Back
         </Button>
       </CardFooter>
     </Card>

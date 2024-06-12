@@ -41,7 +41,7 @@ button {
   appearance: none;
   border: none;
   outline: none;
-  background: none;
+  
 }
 
 .app {
@@ -54,7 +54,7 @@ button {
     transition: margin-left 0.2s ease-out;
 
     &.full-width {
-      margin-left: 0; /* Remove sidebar margin if it's not visible */
+      margin-left: 0;
     }
 
     @media (max-width: 768px) {

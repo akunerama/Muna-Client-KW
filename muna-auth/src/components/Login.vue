@@ -18,7 +18,7 @@
         </div>
       </CardContent>
       <CardFooter class="grid gap-4">
-        <Button class="w-full"> Sign in </Button>
+        <Button class="w-full bg-black text-white hover:bg-gray-800 focus:ring focus:ring-black active:bg-gray-900"> Sign in </Button>
         <div class="mt-4 text-center text-sm">
           Don't have an account?
           <router-link :to="{ name: 'signup' }"> Signup</router-link>
@@ -84,18 +84,20 @@ export default {
         }
 
         const result = await response.json();
-        alert('Login successful:', result);
-        // Redirect to the home page if login is successful
-        // router.push({ name: 'HelloWorld' });
+
+        if (result.message === "login successful") {
+          alert(`${result.message}`);
+          this.$router.push({ name: 'home' }); // Use this.$router for navigation
+        } else if (result.message === "login failed") {
+          alert(`${result.message}: ${result.details}`);
+        } else {
+          alert(`Unexpected result: ${result.message}`);
+        }
       } catch (error) {
         console.error('Login error:', error.message);
-        alert(error.message); // Show user the error message
+        alert(error.message);
       }
-
-      return {
-        username, password, handleSubmit
-      };
     }
   }
-}
+};
 </script>
