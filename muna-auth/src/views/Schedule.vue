@@ -1,6 +1,6 @@
 <template>
     <div class="app-container">
-      <div class="main-content">
+      <div class="main-content1">
         <DataTable />
       </div>
     </div>
@@ -21,8 +21,9 @@
     display: flex;
     justify-content: space-between;
   }
-  .main-content{
+  .main-content1{
     flex: 3;
+    margin: 0;
   }
   .menu.container{
     flex: 1;
@@ -30,3 +31,4 @@
     border-left: lpx solid #ccc;
   }
   </style>
+  

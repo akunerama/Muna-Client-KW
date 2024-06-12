@@ -1,16 +1,17 @@
 <template>
-  <div>
+  <div class="fullscreen-container">
     <h2>Jadwal Munaqasah</h2>
     <ag-grid-vue
-      style="width: 100%; height: 400px;"
-      class="ag-theme-alpine"
+      class="ag-theme-alpine grid-container"
       :columnDefs="columnDefs"
       :rowData="rowData"
       :pagination="true"
       :paginationPageSize="18"
+      :paginationPageSizeSelector= "[18, 200]"
       :defaultColDef="defaultColDef"
       @cellValueChanged="onCellValueChanged"
     ></ag-grid-vue>
+    <button @click="submitData" class="submit-button">Submit Data</button>
   </div>
 </template>
 
@@ -28,7 +29,7 @@ export default {
       columnDefs: [
         { headerName: 'NIM', field: 'nim', sortable: true, filter: true },
         { headerName: 'Nama', field: 'nama', sortable: true, filter: true },
-        { headerName: 'Prodi', field: 'prodi', sortable: true, filter: true },
+        // { headerName: 'Prodi', field: 'prodi', sortable: true, filter: true },
         { headerName: 'Judul Skripsi', field: 'judul_skripsi', sortable: true, filter: true },
         { headerName: 'Dosen Pembimbing', field: 'dosenPembimbing', sortable: true, filter: true },
         {
@@ -39,7 +40,7 @@ export default {
           editable: true,
           cellEditor: 'agSelectCellEditor',
           cellEditorParams: {
-            values: [], // Akan diisi secara dinamis
+            values: [],
           },
         },
         {
@@ -50,7 +51,7 @@ export default {
           editable: true,
           cellEditor: 'agSelectCellEditor',
           cellEditorParams: {
-            values: [], // Akan diisi secara dinamis
+            values: [],
           },
         },
         {
@@ -61,21 +62,63 @@ export default {
           editable: true,
           cellEditor: 'agSelectCellEditor',
           cellEditorParams: {
-            values: [], // Akan diisi secara dinamis dengan lecture_id antara 86 dan 98
+            values: [],
           },
         },
-        { headerName: 'Jam', field: 'jam', sortable: true, filter: true },
-        { headerName: 'Hari', field: 'hari', sortable: true, filter: true },
-        { headerName: 'Tanggal', field: 'tanggal', sortable: true, filter: true },
-        { headerName: 'Ruangan', field: 'ruangan', sortable: true, filter: true },
+        {
+          headerName: 'Jam',
+          field: 'jam',
+          sortable: true,
+          filter: true,
+          editable: true,
+          cellEditor: 'agSelectCellEditor',
+          cellEditorParams: {
+            values: [
+              '08:00 - 09:30',
+              '09:30 - 11:00',
+              '11:00 - 12:30',
+              '13:00 - 14:30',
+              '14:30 - 16:00',
+            ],
+          },
+        },
+        {
+          headerName: 'Hari',
+          field: 'hari',
+          sortable: true,
+          filter: true,
+          editable: true,
+          cellEditor: 'agSelectCellEditor',
+          cellEditorParams: {
+            values: ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat'],
+          },
+        },
+        {
+          headerName: 'Tanggal',
+          field: 'tanggal',
+          sortable: true,
+          filter: true,
+          editable: true,
+        },
+        {
+          headerName: 'Ruangan',
+          field: 'ruangan',
+          sortable: true,
+          filter: true,
+          editable: true,
+          cellEditor: 'agSelectCellEditor',
+          cellEditorParams: {
+            values: ['Ruang 1', 'Ruang 2', 'Ruang 3'],
+          },
+        },
       ],
       rowData: [],
       defaultColDef: {
         sortable: true,
         filter: true,
       },
-      dosenOptions: [], // Untuk menyimpan semua opsi dosen
-      dosenPenguji4Options: [], // Untuk menyimpan opsi dosen dengan lecture_id antara 86 dan 98
+      dosenOptions: [],
+      dosenPenguji4Options: [],
     };
   },
   async created() {
@@ -95,13 +138,13 @@ export default {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         const result = await response.json();
-        console.log('API Response:', result); // Log data respon API untuk debugging
+        console.log('API Response:', result);
 
         if (result && Array.isArray(result.data)) {
-          this.dosenOptions = result.data.map(dosen => dosen.nama); // Ekstrak nama untuk dropdown
+          this.dosenOptions = result.data.map(dosen => ({ name: dosen.nama, uuid: dosen.lecture_uuid }));
           this.dosenPenguji4Options = result.data
             .filter(dosen => dosen.lecture_id >= 86 && dosen.lecture_id <= 98)
-            .map(dosen => dosen.nama); // Filter dosen dengan lecture_id antara 86 dan 98
+            .map(dosen => ({ name: dosen.nama, uuid: dosen.lecture_uuid }));
           this.updateColumnDefs();
         } else {
           console.error('Error: Expected an array but got', result);
@@ -122,7 +165,7 @@ export default {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         const result = await response.json();
-        console.log('Munaqasyah Data:', result); // Log data respon API untuk debugging
+        console.log('Munaqasyah Data:', result);
 
         if (result && Array.isArray(result.data)) {
           this.processData(result.data);
@@ -134,26 +177,25 @@ export default {
       }
     },
     updateColumnDefs() {
-      // Perbarui cellEditorParams untuk kolom 'dosenPenguji2', 'dosenPenguji3', dan 'dosenPenguji4'
       const updatedColumnDefs = this.columnDefs.map(col => {
         if (col.field === 'dosenPenguji2' || col.field === 'dosenPenguji3') {
-          col.cellEditorParams.values = this.dosenOptions;
+          col.cellEditorParams.values = this.dosenOptions.map(d => d.name);
         }
         if (col.field === 'dosenPenguji4') {
-          col.cellEditorParams.values = this.dosenPenguji4Options;
+          col.cellEditorParams.values = this.dosenPenguji4Options.map(d => d.name);
         }
         return col;
       });
-      this.columnDefs = [...updatedColumnDefs]; // Trigger reactivity
+      this.columnDefs = [...updatedColumnDefs];
     },
     processData(data) {
-      // Map data agar sesuai dengan format yang diharapkan
       const processedData = data.map(item => ({
+        muna_id: item.muna_id,
         nim: item.nim,
         nama: item.nama,
-        prodi: item.prodi,
+        // prodi: item.prodi,
         judul_skripsi: item.judul_skripsi,
-        dosenPembimbing: item.penguji.length > 0 ? item.penguji[0].nama : '', // Set dosenPembimbing to the first penguji's name
+        dosenPembimbing: item.penguji.length > 0 ? item.penguji[0].nama : '',
         dosenPenguji2: item.penguji.length > 1 ? item.penguji[1].nama : '',
         dosenPenguji3: item.penguji.length > 2 ? item.penguji[2].nama : '',
         dosenPenguji4: item.penguji.length > 3 ? item.penguji[3].nama : '',
@@ -162,8 +204,58 @@ export default {
         tanggal: item.tanggal_uji,
         ruangan: item.ruangan,
       }));
-      console.log('Processed Data:', processedData); // Log data yang telah diproses untuk debugging
+      console.log('Processed Data:', processedData);
       this.rowData = processedData;
+    },
+    async submitData() {
+      const formattedData = this.rowData.map(item => ({
+        muna_id: item.muna_id,
+        tahun: "2024",
+        tanggal_uji:item.tanggal || null,
+        hari: item.hari || null,
+        ruangan: item.ruangan || null,
+        penguji_1: {
+          examiner_id: 1,
+          lecture_uuid: this.getLectureUUID(item.dosenPembimbing),
+        },
+        penguji_2: {
+          examiner_id: null,
+          lecture_uuid: this.getLectureUUID(item.dosenPenguji2),
+        },
+        penguji_3: {
+          examiner_id: null,
+          lecture_uuid: this.getLectureUUID(item.dosenPenguji3),
+        },
+        penguji_4: {
+          examiner_id: null,
+          lecture_uuid: this.getLectureUUID(item.dosenPenguji4),
+        },
+        start_time: item.jam ? item.jam.split('-')[0] : null,
+        end_time: item.jam ? item.jam.split('-')[1] : null,
+      }));console.log(JSON.stringify(formattedData))
+      
+      try {
+        const response = await fetch('http://10.1.15.208:8000/schedule/munaqasyah/', {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formattedData),
+        });
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const result = await response.json();
+        console.log('Submit Response:', result);
+        alert('Data submitted successfully');
+      } catch (error) {
+        console.error('Error submitting data:', error);
+        alert('Failed to submit data');
+      }
+    },
+    getLectureUUID(name) {
+      const dosen = this.dosenOptions.find(d => d.name === name) || this.dosenPenguji4Options.find(d => d.name === name);
+      return dosen ? dosen.uuid : '';
     },
     onCellValueChanged(params) {
       const selectedDosenPembimbing = params.data.dosenPembimbing;
@@ -187,9 +279,26 @@ export default {
 </script>
 
 <style>
+.fullscreen-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
 .ag-theme-alpine {
-  height: 400px;
   width: 100%;
+  /* max-width: 1200px; */
+  height: 100%;
+  /* max-height: max-content; */
+  flex-grow: 1;
+}
+.submit-button {
+  margin-top: 20px;
+  background-color: gray;
+  color: white;
+  border-radius: 5px;
+  padding: 0.5rem;
 }
 </style>
- 
